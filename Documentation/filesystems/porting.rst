@@ -870,16 +870,7 @@ its result is kern_unmount() or kern_unmount_array().
 
 **mandatory**
 
-If ->rename() update of .. on cross-directory move needs an exclusion with
-directory modifications, do *not* lock the subdirectory in question in your
-->rename() - it's done by the caller now [that item should've been added in
-28eceeda130f "fs: Lock moved directories"].
-
----
-
-**mandatory**
-
-On same-directory ->rename() the (tautological) update of .. is not protected
-by any locks; just don't do it if the old parent is the same as the new one.
-We really can't lock two subdirectories in same-directory rename - not without
-deadlocks.
+For bvec based itererators bio_iov_iter_get_pages() now doesn't copy bvecs but
+uses the one provided. Anyone issuing kiocb-I/O should ensure that the bvec and
+page references stay until I/O has completed, i.e. until ->ki_complete() has
+been called or returned with non -EIOCBQUEUED code.
