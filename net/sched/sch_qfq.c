@@ -433,11 +433,6 @@ static int qfq_change_class(struct Qdisc *sch, u32 classid, u32 parentid,
 	} else {
 		/* MTU size is user controlled */
 		lmax = psched_mtu(qdisc_dev(sch));
-		if (lmax < QFQ_MIN_LMAX || lmax > QFQ_MAX_LMAX) {
-			NL_SET_ERR_MSG_MOD(extack,
-					   "MTU size out of bounds for qfq");
-			return -EINVAL;
-		}
 	}
 
 	inv_w = ONE_FP / weight;
