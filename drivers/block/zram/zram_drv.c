@@ -1051,7 +1051,7 @@ static ssize_t comp_algorithm_show(struct device *dev,
 	return __comp_algorithm_show(zram, ZRAM_PRIMARY_COMP, buf);
 }
 
-static ssize_t comp_algorithm_store(struct device *dev,
+static __maybe_unused ssize_t comp_algorithm_store(struct device *dev,
 				    struct device_attribute *attr,
 				    const char *buf,
 				    size_t len)
@@ -2188,7 +2188,7 @@ static DEVICE_ATTR_WO(mem_limit);
 static DEVICE_ATTR_WO(mem_used_max);
 static DEVICE_ATTR_WO(idle);
 static DEVICE_ATTR_RW(max_comp_streams);
-static DEVICE_ATTR_RW(comp_algorithm);
+static DEVICE_ATTR_RO(comp_algorithm);
 #ifdef CONFIG_ZRAM_WRITEBACK
 static DEVICE_ATTR_RW(backing_dev);
 static DEVICE_ATTR_WO(writeback);
