@@ -12,6 +12,7 @@ static const char *task_name[] = {
 	"com.miui.home",
 	"droid.launcher3",  // com.android.launcher3
 	"ion.XOSLauncher", // com.transsion.XOSLauncher
+	"sion.hilauncher", // com.transsion.hilauncher
 	"ndroid.systemui",  // com.android.systemui
 	// "surfaceflinger",
 	"com.tencent.mm",
