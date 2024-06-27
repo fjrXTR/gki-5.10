@@ -250,7 +250,7 @@ void unix_gc(void)
 		struct sock *sk = &u->sk;
 		long total_refs;
 
-		total_refs = file_count(u->sk.sk_socket->file);
+		total_refs = file_count(sk->sk_socket->file);
 
 		BUG_ON(!u->inflight);
 		BUG_ON(total_refs < u->inflight);
@@ -260,7 +260,7 @@ void unix_gc(void)
 			__set_bit(UNIX_GC_MAYBE_CYCLE, &u->gc_flags);
 
 			if (sk->sk_state == TCP_LISTEN) {
-				unix_state_lock_nested(sk, U_LOCK_GC_LISTENER);
+				unix_state_lock(sk);
 				unix_state_unlock(sk);
 			}
 		}
