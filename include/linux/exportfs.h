@@ -213,6 +213,12 @@ struct export_operations {
 			  bool write, u32 *device_generation);
 	int (*commit_blocks)(struct inode *inode, struct iomap *iomaps,
 			     int nr_iomaps, struct iattr *iattr);
+/*
+ * ANDROID: crc fix for commit 0220d51186482 ("nfs: use change
+ * attribute for NFS re-exports") and commit d5314c9bb7f52 ("
+ * nfsd: add a new EXPORT_OP_NOWCC flag to struct export_operations")
+ */
+#ifndef __GENKSYMS__
 	u64 (*fetch_iversion)(struct inode *);
 #define	EXPORT_OP_NOWCC			(0x1) /* don't collect v3 wcc data */
 #define	EXPORT_OP_NOSUBTREECHK		(0x2) /* no subtree checking */
@@ -223,6 +229,7 @@ struct export_operations {
 						*/
 #define EXPORT_OP_FLUSH_ON_CLOSE	(0x20) /* fs flushes file data on close */
 	unsigned long	flags;
+#endif
 };
 
 extern int exportfs_encode_inode_fh(struct inode *inode, struct fid *fid,
