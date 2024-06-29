@@ -659,9 +659,11 @@ out_unlock:
 	return file;
 }
 
-int close_fd(unsigned fd)
+/*
+ * The same warnings as for __alloc_fd()/__fd_install() apply here...
+ */
+int __close_fd(struct files_struct *files, unsigned fd)
 {
-	struct files_struct *files = current->files;
 	struct file *file;
 
 	file = pick_file(files, fd);
@@ -670,7 +672,7 @@ int close_fd(unsigned fd)
 
 	return filp_close(file, files);
 }
-EXPORT_SYMBOL(close_fd); /* for ksys_close() */
+EXPORT_SYMBOL(__close_fd); /* for ksys_close() */
 
 /**
  * __close_range() - Close all file descriptors in a given range.
@@ -1085,7 +1087,7 @@ int replace_fd(unsigned fd, struct file *file, unsigned flags)
 	struct files_struct *files = current->files;
 
 	if (!file)
-		return close_fd(fd);
+		return __close_fd(files, fd);
 
 	if (fd >= rlimit(RLIMIT_NOFILE))
 		return -EBADF;
