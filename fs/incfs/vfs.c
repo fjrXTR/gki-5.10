@@ -1357,6 +1357,7 @@ static int dir_rename(struct inode *old_dir, struct dentry *old_dentry,
 	struct dentry *backing_new_dir_dentry;
 	struct inode *target_inode;
 	struct dentry *trap;
+	struct renamedata rd;
 	int error = 0;
 
 	error = mutex_lock_interruptible(&mi->mi_dir_struct_mutex);
@@ -1398,9 +1399,11 @@ static int dir_rename(struct inode *old_dir, struct dentry *old_dentry,
 		goto unlock_out;
 	}
 
-	error = vfs_rename(d_inode(backing_old_dir_dentry), backing_old_dentry,
-			d_inode(backing_new_dir_dentry), backing_new_dentry,
-			NULL, 0);
+	rd.old_dir	   = d_inode(backing_old_dir_dentry);
+	rd.old_dentry	   = backing_old_dentry;
+	rd.new_dir	   = d_inode(backing_new_dir_dentry);
+	rd.new_dentry	   = backing_new_dentry;
+	error = vfs_rename(&rd);
 	if (error)
 		goto unlock_out;
 	if (target_inode)
