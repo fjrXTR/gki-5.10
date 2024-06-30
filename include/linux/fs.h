@@ -1577,11 +1577,20 @@ struct super_block {
 	/* Number of inodes with nlink == 0 but still referenced */
 	atomic_long_t s_remove_count;
 
+/*
+ * ANDROID: crc fix for commit 9917e1bda3d7a ("fsnotify: count all
+ * objects with attached connectors")
+ */
+#ifdef __GENKSYMS__
+	/* Pending fsnotify inode refs */
+	atomic_long_t s_fsnotify_inode_refs;
+#else
 	/*
 	 * Number of inode/mount/sb objects that are being watched, note that
 	 * inodes objects are currently double-accounted.
 	 */
 	atomic_long_t s_fsnotify_connectors;
+#endif
 
 	/* Being remounted read-only */
 	int s_readonly_remount;
