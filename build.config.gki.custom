@@ -1,8 +1,8 @@
 LLVM=1
 DEPMOD=depmod
 DTC=dtc
-# use clang 18.0.1
-CLANG_PREBUILT_BIN=prebuilts-master/clang/host/linux-x86/clang/bin
+# use clang 19.0.0
+CLANG_PREBUILT_BIN=prebuilts-master/clang/host/linux-x86/clang-19.0/bin
 BUILDTOOLS_PREBUILT_BIN=build/build-tools/path/linux-x86
 
 KCFLAGS="${KCFLAGS} -D__ANDROID_COMMON_KERNEL__"
