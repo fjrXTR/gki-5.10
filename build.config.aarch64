@@ -7,11 +7,13 @@ LINUX_GCC_CROSS_COMPILE_PREBUILTS_BIN=prebuilts/gas/linux-x86
 
 MAKE_GOALS="
 Image
+Image.gz
 modules
 "
 
 FILES="
 arch/arm64/boot/Image
+arch/arm64/boot/Image.gz
 vmlinux
 System.map
 vmlinux.symvers
