@@ -17,7 +17,13 @@
 #include <drm/drm_prime.h>
 #include <drm/drm_print.h>
 
+/*
+ * ANDROID: crc fix for commit a508a102edf8 (drm/shmem-helper:
+ * Fix BUG_ON() on mmap(PROT_WRITE, MAP_PRIVATE))
+ */
+#ifndef __GENKSYMS__
 #include "../../../mm/internal.h"   /* is_cow_mapping() */
+#endif
 
 /**
  * DOC: overview
