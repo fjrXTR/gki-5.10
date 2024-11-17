@@ -136,13 +136,8 @@ static bool sugov_update_next_freq(struct sugov_policy *sg_policy, u64 time,
 		sg_policy->need_freq_update = cpufreq_driver_test_flags(CPUFREQ_NEED_UPDATE_LIMITS);
 	}
 
-<<<<<<< HEAD
-	if (sg_policy->next_freq > next_freq)
-		next_freq = (sg_policy->next_freq + next_freq) >> 1;
-=======
 	if (sugov_up_down_rate_limit(sg_policy, time, next_freq))
 		return false;
->>>>>>> 3bf97bb5f83a (ANDROID: cpufreq/schedutil: add up/down frequency transition rate limits)
 
 	sg_policy->next_freq = next_freq;
 	sg_policy->last_freq_update_time = time;
